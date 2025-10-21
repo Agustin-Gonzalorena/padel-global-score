@@ -1,10 +1,10 @@
 ---
+export const prerender = false;
+
 import BackButton from "../components/BackButton.astro";
 import CardPlayer from "../components/CardPlayer.astro";
 import Layout from "../layouts/Layout.astro";
 import { getTeams } from "../utils/teamStore";
-
-export const prerender = false;
 
 const { searchParams } = new URL(Astro.request.url);
 const teamAId = searchParams.get("teamA");

@@ -1,9 +1,10 @@
 ---
+export const prerender = false;
+
 import Layout from "../layouts/Layout.astro";
 import FormCreateMatch from "../components/react/FormCreateMatch";
 import FormFinishMatch from "../components/react/FormFinishMatch.jsx";
 
-export const prerender = false;
 const tokenCookie = Astro.cookies.get("token") || null;
 if (!tokenCookie || !tokenCookie.value) {
   return Astro.redirect("/login");
