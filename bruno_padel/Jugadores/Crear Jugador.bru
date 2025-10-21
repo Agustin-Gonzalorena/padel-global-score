@@ -1,0 +1,28 @@
+meta {
+  name: Crear Jugador
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/players
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE3NjA4ODA3ODYsImlhdCI6MTc2MDc5NDM4Nn0.vSZmN9DnprDh8Z9IaAsGwD2hT4F11dJNSLz983gJ7QbdOrJsaFOQ6SpfPvCoo5wz778kIIwyWSX93EB3BnTTDA
+}
+
+body:json {
+  {
+    "name": "perro",
+    "strength":"p",
+    "weakness":"p",
+    "urlPhoto":"foto"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

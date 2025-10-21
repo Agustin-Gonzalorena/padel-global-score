@@ -1,0 +1,20 @@
+meta {
+  name: Buscar equipo por jugadores
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/teams/player?leftId=1&rightId=2
+  body: none
+  auth: inherit
+}
+
+params:query {
+  leftId: 1
+  rightId: 2
+}
+
+settings {
+  encodeUrl: true
+}

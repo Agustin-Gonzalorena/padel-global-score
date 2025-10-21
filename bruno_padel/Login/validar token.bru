@@ -1,0 +1,19 @@
+meta {
+  name: validar token
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/auth/validate
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE3NjA4MjA2MTcsImlhdCI6MTc2MDczNDIxN30.0tD3m2XFpKX5CC44pLG7bn2g-FwsPmagstpSvtOvWyBgZhsxYbxOQs2no-FEt4iS1XY1lg92yLcibNw34_f4Q
+}
+
+settings {
+  encodeUrl: true
+}

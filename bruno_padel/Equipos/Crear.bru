@@ -1,0 +1,27 @@
+meta {
+  name: Crear
+  type: http
+  seq: 1
+}
+
+post {
+  url: http:localhost:8080/api/teams
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE3NjA4Nzg3NjIsImlhdCI6MTc2MDc5MjM2Mn0._qKIFz_I-TykgKHMAaLta0AVALFNp6VruAkDC33JwFrgMBjdTJ8rd5nAG4NkQKnNdquhugmkGpABzWh5JYyh1Q
+}
+
+body:json {
+  {
+    "leftSideId":1,
+    "rightSideId":3,
+    "urlPhoto":"foto"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,41 @@
+meta {
+  name: Supender
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:8080/api/matches/suspend/38
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE3NjEwNjUxNTAsImlhdCI6MTc2MDk3ODc1MH0.FstgYHSSfZfIbAJws1zOZMit7MzGVIb3T8MD1Z2N_pB3yVJqSBCEUAf2HuOyOG8HVSuJEl3qU94XK8qxbL-XLA
+}
+
+body:json {
+  {
+    "results":[
+      {
+        "numberSet":1,
+        "gamesTeamA":6,
+        "gamesTeamB":2
+      },
+      {
+        "numberSet":2,
+        "gamesTeamA":6,
+        "gamesTeamB":7
+      },
+      {
+        "numberSet":3,
+        "gamesTeamA":2,
+        "gamesTeamB":1
+      }
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+}

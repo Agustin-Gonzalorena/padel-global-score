@@ -1,0 +1,22 @@
+meta {
+  name: Obtener todos
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8080/api/matches?teamA=2&teamB=1&location=4
+  body: none
+  auth: inherit
+}
+
+params:query {
+  teamA: 2
+  teamB: 1
+  location: 4
+  ~winner: 1
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,21 @@
+meta {
+  name: Obtener todos los jugadores
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/players/1e63928b-0b0a-48ed-bd8d-8e25863cea39
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "papusax"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

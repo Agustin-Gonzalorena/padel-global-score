@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: padel-db-pg
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: app-user
+      POSTGRES_PASSWORD: app-pass123
+      POSTGRES_DB: padel_db
+      TZ: America/Argentina/Buenos_Aires
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -1,0 +1,15 @@
+meta {
+  name: Obtener todos
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://192.168.10.6:8080/api/locations
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

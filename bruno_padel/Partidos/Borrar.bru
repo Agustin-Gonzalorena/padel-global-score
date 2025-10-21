@@ -1,0 +1,19 @@
+meta {
+  name: Borrar
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:8080/api/matches/46
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE3NjExNTgwNTEsImlhdCI6MTc2MTA3MTY1MX0.-WgpYnekNySWJImID-b0HtrlvP035Ugg0yBqwWGSvz3X-3dxuY-NatSBEcn_mfKeqG7Up-0Y5dWYxmjeig-4Kg
+}
+
+settings {
+  encodeUrl: true
+}
