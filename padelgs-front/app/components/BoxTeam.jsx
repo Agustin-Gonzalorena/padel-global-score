@@ -1,25 +1,7 @@
 import React, { useState } from "react";
 import CardTeam from "./CardTeam";
 
-const BoxTeam = ({ teamA, teamB, setLoading }) => {
-  const [results, setResults] = useState([]);
-  const [win, setWin] = useState(null);
-  const fetchResults = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/statistics/vs?teamA=${teamA.id}&teamB=${teamB.id}`
-      );
-      const res = await response.json();
-      setResults(res.data);
-      setWin(res.data.winsTeamA > res.data.winsTeamB ? teamA : teamB);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching results:", error);
-    }
-  };
-  React.useEffect(() => {
-    fetchResults();
-  }, []);
+const BoxTeam = ({ teamA, teamB, win, results }) => {
   return (
     <section className="flex-1 container mx-auto px-4 py-8 md:py-16">
       <div className="grid grid-cols-2 gap-3 md:gap-8 max-w-6xl mx-auto">

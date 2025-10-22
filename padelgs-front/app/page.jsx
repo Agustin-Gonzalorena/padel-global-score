@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import BoxTeam from "./components/BoxTeam";
 import BoxMenu from "./components/BoxMenu";
 import Loading from "./components/Loading";
@@ -8,6 +8,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [lastMatch, setLastMatch] = useState({});
   const [teams, setTeams] = useState([]);
+  const [results, setResults] = useState([]);
+  const [win, setWin] = useState(null);
 
   const getDay = (dateString) => {
     const date = new Date(dateString + "T00:00:00-03:00");
@@ -30,10 +32,29 @@ export default function Home() {
       console.error("Error fetching teams:", error);
     }
   };
+  const fetchResultsStatistics = async () => {
+    const teamA = teams[0].teamA;
+    const teamB = teams[0].teamB;
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/statistics/vs?teamA=${teamA.id}&teamB=${teamB.id}`
+      );
+      const res = await response.json();
+      setResults(res.data);
+      setWin(res.data.winsTeamA > res.data.winsTeamB ? teamA : teamB);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching results:", error);
+    }
+  };
   useEffect(() => {
     fetchTeams();
   }, []);
-  if (loading) {
+  useEffect(() => {
+    if (teams.length === 0) return;
+    fetchResultsStatistics();
+  }, [teams]);
+  if (loading || teams.length === 0) {
     return <Loading />;
   }
   return (
@@ -64,7 +85,8 @@ export default function Home() {
       <BoxTeam
         teamA={teams[0].teamA}
         teamB={teams[0].teamB}
-        setLoading={setLoading}
+        win={win}
+        results={results}
       />
       <BoxMenu teamA={teams[0].teamA} teamB={teams[0].teamB} />
     </>
