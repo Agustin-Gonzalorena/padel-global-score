@@ -11,9 +11,10 @@ const page = () => {
           </h1>
           <p className="text-sm text-white/70">Conozca a los atletas</p>
         </div>
-        <Suspense fallback={<div>Loading players...</div>}>
+        {/* <Suspense fallback={<div>Loading players...</div>}>
           <BoxPlayer />
-        </Suspense>
+        </Suspense> */}
+        <BoxPlayer />
       </div>
     </>
   );

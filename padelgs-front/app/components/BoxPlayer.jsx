@@ -1,21 +1,21 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+/* import { useSearchParams } from "next/navigation"; */
 import React, { useEffect, useState } from "react";
 import CardPlayer from "./CardPlayer";
 import Loading from "./Loading";
 
 const BoxPlayer = () => {
-  const params = useSearchParams();
+  /* const params = useSearchParams(); */
   const [teams, setTeams] = useState([]);
 
   const fetchTeams = async () => {
     try {
       const resA = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams/${params.get("teamA")}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams/1}`
       );
       const { data: teamA } = await resA.json();
       const resB = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams/${params.get("teamB")}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams/2}`
       );
       const { data: teamB } = await resB.json();
       setTeams([teamA, teamB]);
