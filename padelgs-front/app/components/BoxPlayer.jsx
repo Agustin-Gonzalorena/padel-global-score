@@ -11,11 +11,11 @@ const BoxPlayer = () => {
   const fetchTeams = async () => {
     try {
       const resA = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams/1}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams/1`
       );
       const { data: teamA } = await resA.json();
       const resB = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams/2}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/teams/2`
       );
       const { data: teamB } = await resB.json();
       setTeams([teamA, teamB]);
