@@ -1,3 +1,5 @@
+"use client";
+import { Suspense } from "react";
 import BoxPlayer from "../components/BoxPlayer";
 
 const page = () => {
@@ -10,7 +12,9 @@ const page = () => {
           </h1>
           <p className="text-sm text-white/70">Conozca a los atletas</p>
         </div>
-        <BoxPlayer />
+        <Suspense fallback={<div>Loading players...</div>}>
+          <BoxPlayer />
+        </Suspense>
       </div>
     </>
   );
