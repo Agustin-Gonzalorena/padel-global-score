@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CardTeam from "./CardTeam";
 
-const BoxTeam = ({ teamA, teamB }) => {
+const BoxTeam = ({ teamA, teamB, setLoading }) => {
   const [results, setResults] = useState([]);
   const [win, setWin] = useState(null);
   const fetchResults = async () => {
@@ -12,6 +12,7 @@ const BoxTeam = ({ teamA, teamB }) => {
       const res = await response.json();
       setResults(res.data);
       setWin(res.data.winsTeamA > res.data.winsTeamB ? teamA : teamB);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching results:", error);
     }

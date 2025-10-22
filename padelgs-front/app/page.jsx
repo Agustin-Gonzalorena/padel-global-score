@@ -5,6 +5,7 @@ import BoxMenu from "./components/BoxMenu";
 import Loading from "./components/Loading";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const [lastMatch, setLastMatch] = useState({});
   const [teams, setTeams] = useState([]);
 
@@ -32,7 +33,7 @@ export default function Home() {
   useEffect(() => {
     fetchTeams();
   }, []);
-  if (teams.length === 0) {
+  if (loading) {
     return <Loading />;
   }
   return (
@@ -60,7 +61,11 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <BoxTeam teamA={teams[0].teamA} teamB={teams[0].teamB} />
+      <BoxTeam
+        teamA={teams[0].teamA}
+        teamB={teams[0].teamB}
+        setLoading={setLoading}
+      />
       <BoxMenu teamA={teams[0].teamA} teamB={teams[0].teamB} />
     </>
   );

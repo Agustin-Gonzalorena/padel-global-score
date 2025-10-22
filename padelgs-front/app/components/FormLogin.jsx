@@ -7,6 +7,9 @@ const FormLogin = () => {
     const formData = new FormData(event.target);
     const username = formData.get("username");
     const password = formData.get("password");
+    //limpiar inputs
+    event.target.reset();
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth`,
