@@ -7,26 +7,26 @@ const BoxTeam = ({ teamA, teamB, win, results }) => {
       <div className="grid grid-cols-2 gap-3 md:gap-8 max-w-6xl mx-auto">
         <CardTeam
           team={teamA}
-          wins={results.winsTeamA}
-          streak={results.streakTeamA}
+          wins={results.winMatchesTeamA}
+          streak={results.currentStreakTeamA}
           win={win}
           urlTeam={teamA.urlPhoto}
           title="Team A"
         />
         <CardTeam
           team={teamB}
-          wins={results.winsTeamB}
-          streak={results.streakTeamB}
+          wins={results.winMatchesTeamB}
+          streak={results.currentStreakTeamB}
           win={win}
           urlTeam={teamB.urlPhoto}
           title="Team B"
         />
-        <div className="text-center col-span-2 mt-4 flex justify-center">
+        {/* <div className="text-center col-span-2 mt-4 flex justify-center">
           <p className="bg-card px-4 py-2 rounded-lg text-muted-foreground text-sm">
             Total de partidos jugados:{" "}
             <span className="text-white font-bold">{results.totalMatches}</span>
           </p>
-        </div>
+        </div> */}
       </div>
     </section>
   );

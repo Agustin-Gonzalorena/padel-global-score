@@ -1,76 +1,134 @@
 package com.padel.padel_global_score.service;
 
-import com.padel.padel_global_score.persistence.StateMatch;
+import com.padel.padel_global_score.exception.ResourceNotFoundException;
 import com.padel.padel_global_score.persistence.entity.Match;
-import com.padel.padel_global_score.presentation.dto.HeadToHeadDTO;
+import com.padel.padel_global_score.persistence.repository.MatchRepo;
+import com.padel.padel_global_score.presentation.dto.StatsDTO;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 @Service
 public class ReportService {
-    private final MatchService matchService;
+    private final MatchRepo matchRepo;
+    private final TeamService teamService;
 
-    public ReportService(MatchService matchService) {
-        this.matchService = matchService;
+    public ReportService(MatchRepo matchRepo, TeamService teamService) {
+        this.matchRepo = matchRepo;
+        this.teamService = teamService;
     }
 
-    public HeadToHeadDTO getHeadToHeadReport(Long teamAId, Long teamBId) {
-        List<Match> matches = matchService.getAllMatchesByTeams(teamAId, teamBId)
-                .stream()
-                .sorted(Comparator.comparing(Match::getId)) // orden ascendente por id (ajustá si preferís fecha)
-                .toList();
+    public StatsDTO getStatsReport(Long teamAId, Long teamBId) {
+        //chequear que existan los equipos?
+        teamService.getTeamById(teamAId);
+        teamService.getTeamById(teamBId);
+        //chequear que hayan jugado partidos?
+        if (matchRepo.findByTeams(teamAId, teamBId).isEmpty()) {
+            //error
+            throw new ResourceNotFoundException("No matches found between the specified teams.");
+        }
+        Long winGamesTeamA = matchRepo.countWonGamesByTeam(teamAId, teamBId, true);
+        Long winGamesTeamB = matchRepo.countWonGamesByTeam(teamAId, teamBId, false);
+        long totalGames = winGamesTeamA + winGamesTeamB;
+        Long winSetsTeamA = matchRepo.countWonSetsByTeam(teamAId, teamBId, true);
+        Long winSetsTeamB = matchRepo.countWonSetsByTeam(teamAId, teamBId, false);
+        Long totalSets = winSetsTeamA + winSetsTeamB;
+        Long winTiebreaksTeamA = matchRepo.countWonTiebreaksByTeam(teamAId, teamBId, true);
+        Long winTiebreaksTeamB = matchRepo.countWonTiebreaksByTeam(teamAId, teamBId, false);
+        Long totalTiebreaks = winTiebreaksTeamA + winTiebreaksTeamB;
+        System.out.println(getMaxWinningStreaks(teamAId, teamBId));
+        Long maxStreakTeamA = getMaxWinningStreaks(teamAId, teamBId).get(teamAId);
+        Long maxStreakTeamB = getMaxWinningStreaks(teamAId, teamBId).get(teamBId);
+        Long winMatchesTeamA = matchRepo.countWonMatchesByTeam(teamAId, teamBId, true);
+        Long winMatchesTeamB = matchRepo.countWonMatchesByTeam(teamAId, teamBId, false);
+        System.out.println("porcentaje de victorias equipo A: " + (winMatchesTeamA.doubleValue() / (winMatchesTeamA + winMatchesTeamB)) * 100);
+        long totalMatches = winMatchesTeamA + winMatchesTeamB;
+        System.out.println(getCurrentWinningStreaks(teamAId, teamBId));
+        Long currentStreakTeamA = getCurrentWinningStreaks(teamAId, teamBId).get(teamAId);
+        Long currentStreakTeamB = getCurrentWinningStreaks(teamAId, teamBId).get(teamBId);
 
-        int countTeamAWins = 0;
-        int countTeamBWins = 0;
-        int totalMatches = 0;
+        return new StatsDTO(
+                winGamesTeamA,
+                winGamesTeamB,
+                totalGames,
+                winSetsTeamA,
+                winSetsTeamB,
+                totalSets,
+                winMatchesTeamA,
+                winMatchesTeamB,
+                totalMatches,
+                winTiebreaksTeamA,
+                winTiebreaksTeamB,
+                totalTiebreaks,
+                maxStreakTeamA,
+                maxStreakTeamB,
+                currentStreakTeamA,
+                currentStreakTeamB
+        );
+    }
 
-        for (Match match : matches) {
-            if (match.getState() == StateMatch.SUSPENDED) {
-                totalMatches++;
+    public Map<Long, Long> getMaxWinningStreaks(Long teamAId, Long teamBId) {
+        List<Match> matches = matchRepo.findByTeams(teamAId, teamBId);
+
+        long streakA = 0, maxA = 0;
+        long streakB = 0, maxB = 0;
+
+        for (Match m : matches) {
+            if (m.getWinner() == null) continue;
+            Long winnerId = m.getWinner().getId();
+
+            if (winnerId.equals(teamAId)) {
+                streakA++;
+                maxA = Math.max(maxA, streakA);
+                streakB = 0;
+            } else if (winnerId.equals(teamBId)) {
+                streakB++;
+                maxB = Math.max(maxB, streakB);
+                streakA = 0;
             }
-            if (match.getWinner() == null) continue;
-            totalMatches++;
-            Long winnerId = match.getWinner().getId();
-            if (Objects.equals(winnerId, teamAId)) countTeamAWins++;
-            else if (Objects.equals(winnerId, teamBId)) countTeamBWins++;
         }
 
-        // --- Calcular racha actual partiendo desde el partido más reciente ---
-        int streakTeamA = 0;
-        int streakTeamB = 0;
+        Map<Long, Long> result = new HashMap<>();
+        result.put(teamAId, maxA);
+        result.put(teamBId, maxB);
 
-        // 1) encontrar el último partido (más reciente) que tenga ganador
-        Long currentWinnerId = null;
+        return result;
+    }
+
+    public Map<Long, Long> getCurrentWinningStreaks(Long teamAId, Long teamBId) {
+        List<Match> matches = matchRepo.findByTeams(teamAId, teamBId);
+
+        long streakA = 0;
+        long streakB = 0;
+
+        // Recorremos los partidos en orden inverso (del más reciente al más antiguo)
         for (int i = matches.size() - 1; i >= 0; i--) {
             Match m = matches.get(i);
-            if (m.getWinner() != null) {
-                currentWinnerId = m.getWinner().getId();
+            if (m.getWinner() == null) continue;
+            Long winnerId = m.getWinner().getId();
+
+            if (winnerId.equals(teamAId)) {
+                streakA++;
+                // Si el ganador es el equipo A, reiniciamos la racha del equipo B
+                streakB = 0;
+            } else if (winnerId.equals(teamBId)) {
+                streakB++;
+                // Si el ganador es el equipo B, reiniciamos la racha del equipo A
+                streakA = 0;
+            } else {
+                // Si no hay ganador, terminamos la búsqueda
                 break;
             }
         }
 
-        // 2) si existe, contar hacia atrás todas las victorias consecutivas del mismo winner
-        if (currentWinnerId != null) {
-            int streak = 0;
-            for (int i = matches.size() - 1; i >= 0; i--) {
-                Match m = matches.get(i);
-                if (m.getWinner() == null) continue;
-                Long wid = m.getWinner().getId();
-                if (Objects.equals(wid, currentWinnerId)) {
-                    streak++;
-                } else {
-                    break; // se cortó la racha
-                }
-            }
-            if (Objects.equals(currentWinnerId, teamAId)) streakTeamA = streak;
-            else if (Objects.equals(currentWinnerId, teamBId)) streakTeamB = streak;
-        }
+        Map<Long, Long> result = new HashMap<>();
+        result.put(teamAId, streakA);
+        result.put(teamBId, streakB);
 
-        return new HeadToHeadDTO(totalMatches, countTeamAWins, countTeamBWins, streakTeamA, streakTeamB);
+        return result;
     }
-
+    
 
 }

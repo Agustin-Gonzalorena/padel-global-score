@@ -16,10 +16,11 @@ public class ReportController {
     public ReportController(ReportService service) {
         this.service = service;
     }
+    
 
-    @GetMapping("/vs")
-    public ResponseEntity<SuccessResponse> getHeadToHeadReport(@RequestParam Long teamA, @RequestParam Long teamB) {
+    @GetMapping("")
+    public ResponseEntity<SuccessResponse> getStatsReport(@RequestParam Long teamAId, @RequestParam Long teamBId) {
         return ResponseEntity.status(200)
-                .body(new SuccessResponse(200, service.getHeadToHeadReport(teamA, teamB)));
+                .body(new SuccessResponse(200, service.getStatsReport(teamAId, teamBId)));
     }
 }

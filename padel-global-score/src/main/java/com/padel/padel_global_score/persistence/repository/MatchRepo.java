@@ -30,4 +30,67 @@ public interface MatchRepo extends JpaRepository<Match, Long> {
             "(:locationId IS NULL OR m.location.id = :locationId)" +
             "ORDER BY m.id DESC")
     Page<Match> search(Long teamAId, Long teamBId, Long winner, Long locationId, Pageable pageable);
+
+
+    @Query("""
+                SELECT SUM(
+                    CASE
+                        WHEN :isTeamA = TRUE THEN s.gamesTeamA
+                        ELSE s.gamesTeamB
+                    END
+                )
+                FROM Match m JOIN m.sets s
+                WHERE (m.teamA.id = :teamAId AND m.teamB.id = :teamBId)
+            """)
+    Long countWonGamesByTeam(Long teamAId, Long teamBId, boolean isTeamA);
+
+    @Query("""
+                SELECT COUNT(s)
+                FROM Match m JOIN m.sets s
+                WHERE (m.teamA.id = :teamAId AND m.teamB.id = :teamBId)
+                  AND (
+                      (:isTeamA = TRUE AND s.gamesTeamA > s.gamesTeamB)
+                      OR
+                      (:isTeamA = FALSE AND s.gamesTeamB > s.gamesTeamA)
+                  )
+            """)
+    Long countWonSetsByTeam(
+            Long teamAId,
+            Long teamBId,
+            boolean isTeamA
+    );
+
+    @Query("""
+                SELECT COUNT(s)
+                FROM Match m JOIN m.sets s
+                WHERE (m.teamA.id = :teamAId AND m.teamB.id = :teamBId)
+                  AND (
+                      (:isTeamA = TRUE  AND s.gamesTeamA = 7 AND s.gamesTeamB = 6)
+                      OR
+                      (:isTeamA = FALSE AND s.gamesTeamB = 7 AND s.gamesTeamA = 6)
+                  )
+            """)
+    Long countWonTiebreaksByTeam(
+            Long teamAId,
+            Long teamBId,
+            boolean isTeamA
+    );
+
+    @Query("""
+                SELECT COUNT(m)
+                FROM Match m
+                WHERE (m.teamA.id = :teamAId AND m.teamB.id = :teamBId)
+                  AND (
+                      (:isTeamA = TRUE  AND m.winner.id = m.teamA.id)
+                      OR
+                      (:isTeamA = FALSE AND m.winner.id = m.teamB.id)
+                  )
+            """)
+    Long countWonMatchesByTeam(
+            Long teamAId,
+            Long teamBId,
+            boolean isTeamA
+    );
+
+
 }

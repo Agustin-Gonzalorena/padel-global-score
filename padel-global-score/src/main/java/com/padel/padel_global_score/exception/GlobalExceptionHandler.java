@@ -8,6 +8,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -38,6 +39,14 @@ public class GlobalExceptionHandler {
         log.info("Parameter type mismatch: {}", ex.getMessage());
         return ResponseEntity.status(400)
                 .body(new ErrorResponse(400, "Bad Request: Parameter type mismatch"));
+    }
+
+    // Maneja parametros faltantes en la solicitud,ejemplo: /matches?teamA=1 y no mandar teamA=
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException ex) {
+        log.info("Missing request parameter: {}", ex.getMessage());
+        return ResponseEntity.status(400)
+                .body(new ErrorResponse(400, "Bad Request: Missing parameter " + ex.getParameterName()));
     }
 
     // Maneja JSON mal formado

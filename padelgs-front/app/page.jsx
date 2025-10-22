@@ -3,6 +3,7 @@ import { use, useEffect, useState } from "react";
 import BoxTeam from "./components/BoxTeam";
 import BoxMenu from "./components/BoxMenu";
 import Loading from "./components/Loading";
+import Stats from "./components/Stats";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -37,11 +38,15 @@ export default function Home() {
     const teamB = teams[0].teamB;
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/statistics/vs?teamA=${teamA.id}&teamB=${teamB.id}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/statistics?teamAId=${teamA.id}&teamBId=${teamB.id}`
       );
       const res = await response.json();
+      console.log(res);
       setResults(res.data);
-      setWin(res.data.winsTeamA > res.data.winsTeamB ? teamA : teamB);
+      setWin(
+        res.data.winMatchesTeamA > res.data.winMatchesTeamB ? teamA : teamB
+      );
+      console.log(win);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching results:", error);
@@ -88,6 +93,7 @@ export default function Home() {
         win={win}
         results={results}
       />
+      <Stats results={results} />
       <BoxMenu teamA={teams[0].teamA} teamB={teams[0].teamB} />
     </>
   );
