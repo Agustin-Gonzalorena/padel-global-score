@@ -1,0 +1,20 @@
+meta {
+  name: stats-l
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://localhost:8080/api/statistics?teamAId=1&teamBId=2
+  body: none
+  auth: inherit
+}
+
+params:query {
+  teamAId: 1
+  teamBId: 2
+}
+
+settings {
+  encodeUrl: true
+}

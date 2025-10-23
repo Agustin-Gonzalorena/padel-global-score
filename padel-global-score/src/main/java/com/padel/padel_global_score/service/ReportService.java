@@ -43,9 +43,7 @@ public class ReportService {
         Long maxStreakTeamB = getMaxWinningStreaks(teamAId, teamBId).get(teamBId);
         Long winMatchesTeamA = matchRepo.countWonMatchesByTeam(teamAId, teamBId, true);
         Long winMatchesTeamB = matchRepo.countWonMatchesByTeam(teamAId, teamBId, false);
-        System.out.println("porcentaje de victorias equipo A: " + (winMatchesTeamA.doubleValue() / (winMatchesTeamA + winMatchesTeamB)) * 100);
         long totalMatches = winMatchesTeamA + winMatchesTeamB;
-        System.out.println(getCurrentWinningStreaks(teamAId, teamBId));
         Long currentStreakTeamA = getCurrentWinningStreaks(teamAId, teamBId).get(teamAId);
         Long currentStreakTeamB = getCurrentWinningStreaks(teamAId, teamBId).get(teamBId);
 
@@ -129,6 +127,6 @@ public class ReportService {
 
         return result;
     }
-    
+
 
 }
