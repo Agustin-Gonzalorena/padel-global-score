@@ -2,42 +2,47 @@ import React from "react";
 const brands = [
   {
     name: "Orella",
-    imgSrc: "/brands/orella.webp",
+    imgSrc: "/brands/orella1.webp",
     link: "https://www.fortnite.com/?lang=es-ES",
   },
   {
-    name: "Red Bull",
-    imgSrc: "/brands/redbull.svg",
-    link: "https://www.redbull.com/es-es/",
+    name: "Red Bull TV",
+    imgSrc: "/brands/redbull1.webp",
+    link: "https://www.redbull.com/ar-es/live-events",
+  },
+  {
+    name: "Word Padel Tour",
+    imgSrc: "/brands/wpt1.webp",
+    link: "https://www.worldpadeltour.com/",
   },
   {
     name: "EA Sports",
-    imgSrc: "/brands/ea-sports.svg",
+    imgSrc: "/brands/ea1.webp",
     link: "https://www.ea.com/es-es/",
   },
   {
-    name: "FD",
-    imgSrc: "/brands/fd.jpg",
-    link: "https://www.instagram.com/f.dgrafico/",
-  },
-  {
     name: "Joma",
-    imgSrc: "/brands/joma.jpeg",
+    imgSrc: "/brands/joma2.webp",
     link: "https://www.joma-sport.com/es/",
   },
   {
+    name: "FD",
+    imgSrc: "/brands/fd3.webp",
+    link: "https://www.instagram.com/f.dgrafico/",
+  },
+  {
     name: "Messi",
-    imgSrc: "/brands/messi.png",
+    imgSrc: "/brands/messi1.webp",
     link: "https://messi.com/",
   },
   {
     name: "Bullpadel",
-    imgSrc: "/brands/bullpadel.png",
+    imgSrc: "/brands/bullpadel1.webp",
     link: "https://www.bullpadel.com/es/es/",
   },
   {
     name: "Head",
-    imgSrc: "/brands/head.jpg",
+    imgSrc: "/brands/head1.webp",
     link: "https://www.head.com/es-es",
   },
 ];
@@ -49,14 +54,14 @@ const Footer = () => {
         <h2 className="text-2xl font-bold font-mono mb-2">OUR PARTNERS</h2>
       </div>
       <div className="flex flex-col py-px-32 lg:py-px-48 gap-px-16 lg:gap-px-24">
-        <div className="flex flex-wrap gap-px-24 md:gap-px-32 lg:gap-px-48">
+        <div className="flex flex-wrap px-3 gap-px-24 md:gap-px-32 lg:gap-px-48">
           {brands.map((brand) => (
             <a
               key={brand.name}
               href={brand.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center rounded-m -m-px-8 p-px-8 py-3 w-[72px] md:w-[88px] lg:w-24 hover:bg-static-static-7"
+              className="flex items-center rounded-m -m-px-8 p-px-8 py-3 w-[72px] md:w-[88px] lg:w-24 hover:bg-static-static-7 "
             >
               <img
                 className="w-14 md:w-[72px] lg:w-20 aspect-video object-contain"
