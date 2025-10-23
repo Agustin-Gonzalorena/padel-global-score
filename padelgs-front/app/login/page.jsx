@@ -10,7 +10,9 @@ const page = () => {
         </h1>
         <p className="text-sm text-white/70">Rappa no podes hackear esto</p>
       </div>
-      <FormLogin />
+      <div className="mb-20">
+        <FormLogin />
+      </div>
     </>
   );
 };

@@ -1,43 +1,82 @@
 import React from "react";
+const brands = [
+  {
+    name: "Orella",
+    imgSrc: "/brands/orella.webp",
+    link: "https://www.fortnite.com/?lang=es-ES",
+  },
+  {
+    name: "Red Bull",
+    imgSrc: "/brands/redbull.svg",
+    link: "https://www.redbull.com/es-es/",
+  },
+  {
+    name: "EA Sports",
+    imgSrc: "/brands/ea-sports.svg",
+    link: "https://www.ea.com/es-es/",
+  },
+  {
+    name: "FD",
+    imgSrc: "/brands/fd.jpg",
+    link: "https://www.instagram.com/f.dgrafico/",
+  },
+  {
+    name: "Joma",
+    imgSrc: "/brands/joma.jpeg",
+    link: "https://www.joma-sport.com/es/",
+  },
+  {
+    name: "Messi",
+    imgSrc: "/brands/messi.png",
+    link: "https://messi.com/",
+  },
+  {
+    name: "Bullpadel",
+    imgSrc: "/brands/bullpadel.png",
+    link: "https://www.bullpadel.com/es/es/",
+  },
+  {
+    name: "Head",
+    imgSrc: "/brands/head.jpg",
+    link: "https://www.head.com/es-es",
+  },
+];
 
 const Footer = () => {
   return (
-    <footer class="bg-gray-900 py-8">
-      <div class="max-w-5xl mx-auto flex flex-wrap justify-center gap-6 filter grayscale opacity-50">
-        <div class="w-16 h-16 bg-blue-500 rounded-md rotate-2">
-          <img
-            className="w-full h-full"
-            src="https://cdn.worldvectorlogo.com/logos/messi-logo-1.svg"
-            alt=""
-          />
+    <footer className="bg-[#232323] w-full md:px-20 px-2 py-10 mt-2">
+      <div className="w-full">
+        <h2 className="text-2xl font-bold font-mono mb-2">OUR PARTNERS</h2>
+      </div>
+      <div className="flex flex-col py-px-32 lg:py-px-48 gap-px-16 lg:gap-px-24">
+        <div className="flex flex-wrap gap-px-24 md:gap-px-32 lg:gap-px-48">
+          {brands.map((brand) => (
+            <a
+              key={brand.name}
+              href={brand.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center rounded-m -m-px-8 p-px-8 py-3 w-[72px] md:w-[88px] lg:w-24 hover:bg-static-static-7"
+            >
+              <img
+                className="w-14 md:w-[72px] lg:w-20 aspect-video object-contain"
+                src={brand.imgSrc}
+                alt={brand.name}
+              />
+            </a>
+          ))}
         </div>
-        <div class="w-20 h-20 bg-red-500 rounded-md -rotate-3 translate-y-2">
-          <img
-            className="w-full h-full"
-            src="https://cdn.worldvectorlogo.com/logos/wilson.svg"
-            alt=""
-          />
+        <div className="w-full flex flex-col items-center">
+          <h2 className="text-2xl font-bold font-mono mt-10 mb-2">Contacto</h2>
+          <p>En la cancha</p>
+          <a href="/admin" className="mt-8 text-muted-foreground underline">
+            Administrar
+          </a>
         </div>
-        <div class="w-14 h-14 bg-yellow-400 rounded-md rotate-1">
-          <img
-            className="w-full h-full"
-            src="https://cdn.worldvectorlogo.com/logos/mcdonalds-7.svg"
-            alt=""
-          />
-        </div>
-        <div class="w-18 h-18 bg-green-500 rounded-md -rotate-6 translate-y-3">
-          <img
-            className="w-full h-full"
-            src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-original-577x577/s3/092021/world_padel_tour_logo.jpg?HzkB5R165jJ1rcITWAyZtsFm7fnT2jq7&itok=81LIlEMS"
-            alt=""
-          />
-        </div>
-        <div class="w-20 h-20 bg-purple-500 rounded-md rotate-4">
-          <img
-            className="w-full h-full"
-            src="https://cdn.worldvectorlogo.com/logos/aws-2.svg"
-            alt=""
-          />
+        <div className="w-full flex justify-center mt-10">
+          <p className="text-sm text-center text-muted-foreground">
+            © 2025 Padel Global Score. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

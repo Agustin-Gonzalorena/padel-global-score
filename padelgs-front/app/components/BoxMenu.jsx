@@ -24,9 +24,9 @@ const BoxMenu = ({ teamA, teamB }) => {
             </div>
           </a>
         </div>
-        <a href="/admin" className="w-full">
+        <a href="/news/1" className="w-full">
           <div className="mt-1 bg-card text-center p-4 shadow-sm shadow-white/30 rounded-2xl">
-            Adminitrar
+            ULTIMAS NOTICIAS
           </div>
         </a>
       </div>

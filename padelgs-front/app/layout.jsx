@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       >
         <Navbar />
         <main className="w-full md:max-w-2/6">{children}</main>
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
