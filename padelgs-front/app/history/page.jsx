@@ -1,15 +1,14 @@
 import React from "react";
 import BoxHistory from "../components/BoxHistory";
+import TitleSections from "../components/TitleSections";
 
 const page = () => {
   return (
     <>
-      <div className="flex flex-col text-center w-full p-5">
-        <h1 className="sm:text-3xl text-2xl font-medium title-font">
-          Historial
-        </h1>
-        <p className="text-sm text-white/70">Revise los encuentros pasados</p>
-      </div>
+      <TitleSections
+        title={"Historial"}
+        subtitle={"Revise los encuentros pasados"}
+      />
       <BoxHistory />
     </>
   );

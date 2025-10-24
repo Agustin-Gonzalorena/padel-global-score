@@ -84,7 +84,7 @@ const BoxHistory = () => {
   }
   return (
     <section className="px-2">
-      <div className="bg-card/40 p-2 flex justify-end gap-2 md:gap-4 text-xs rounded-lg mb-4">
+      <div className="bg-card/40 p-2 flex justify-end gap-2 md:gap-4 text-xs rounded-lg">
         <label htmlFor="">Lugar:</label>
         <select value={location} onChange={(e) => setLocation(e.target.value)}>
           <option value="all">Todos</option>
@@ -119,7 +119,7 @@ const BoxHistory = () => {
         )}
         <div className="w-full flex justify-center">
           <button
-            className="px-5 py-2  bg-card/50 rounded-xl mb-25 hover:bg-card/70 disabled:opacity-50"
+            className="px-5 py-2  bg-card/50 rounded-xl hover:bg-card/70 disabled:opacity-50"
             onClick={() => {
               setSize(size + 4);
             }}

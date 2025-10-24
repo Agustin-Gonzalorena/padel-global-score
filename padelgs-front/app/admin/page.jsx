@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import FormCreateMatch from "../components/FormCreateMatch";
 import FormFinishMatch from "../components/FormFinishMatch";
 import Loading from "../components/Loading";
+import TitleSections from "../components/TitleSections";
 
 const page = () => {
   const [loading, setLoading] = useState(true);
@@ -43,10 +44,7 @@ const page = () => {
   }
   return (
     <>
-      <div className="flex flex-col text-center w-full p-5">
-        <h1 className="sm:text-3xl text-2xl font-medium title-font">Panel</h1>
-        <p className="text-sm text-white/70">Administre los encuentros</p>
-      </div>
+      <TitleSections title={"Panel"} subtitle={"Administre los encuentros"} />
       <FormCreateMatch />
       <div className="flex flex-col gap-6 mt-10 max-w-md mx-auto items-center">
         {pendingMatch.state == "PENDING" ? (

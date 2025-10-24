@@ -1,5 +1,6 @@
 import React from "react";
 import CardStats from "./CardStats";
+import TitleSections from "./TitleSections";
 
 const Stats = ({ results }) => {
   const percentage = (part, total) => {
@@ -8,12 +9,10 @@ const Stats = ({ results }) => {
   };
   return (
     <div className="w-full flex flex-col justify-center items-center gap-3 px-2">
-      <div className="flex flex-col text-center w-full p-5">
-        <h1 className="sm:text-3xl text-2xl font-medium title-font">
-          Estadisticas
-        </h1>
-        <p className="text-sm text-white/70">Descubra los datos clave</p>
-      </div>
+      <TitleSections
+        title={"Estadisticas"}
+        subtitle={"Descubra los datos clave"}
+      />
       <div className="flex gap-2 w-full">
         <CardStats
           name={"Partidos"}
