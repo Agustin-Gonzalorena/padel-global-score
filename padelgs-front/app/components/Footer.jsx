@@ -45,6 +45,11 @@ const brands = [
     imgSrc: "/brands/head1.webp",
     link: "https://www.head.com/es-es",
   },
+  {
+    name: "Wilson",
+    imgSrc: "/brands/wilson1.webp",
+    link: "https://www.wilson.com/es-ar",
+  },
 ];
 
 const Footer = () => {

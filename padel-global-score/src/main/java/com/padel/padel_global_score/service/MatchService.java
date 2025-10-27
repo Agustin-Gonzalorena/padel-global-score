@@ -13,6 +13,7 @@ import com.padel.padel_global_score.presentation.dto.MatchResultsDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class MatchService {
         return repo.save(match);
     }
 
+    @Transactional
     public Match finishMatch(Long id, MatchResultsDTO dto) {
         Match match = getMatchById(id);
         match.setState(StateMatch.COMPLETED);
@@ -57,6 +59,7 @@ public class MatchService {
         return repo.save(match);
     }
 
+    @Transactional
     public Match suspendMatch(Long id, MatchResultsDTO dto) {
         Match match = getMatchById(id);
         match.setState(StateMatch.SUSPENDED);
