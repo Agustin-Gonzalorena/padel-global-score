@@ -48,7 +48,7 @@ const brands = [
   {
     name: "Wilson",
     imgSrc: "/brands/wilson1.webp",
-    link: "https://www.wilson.com/es-ar",
+    link: "https://www.wilsonstore.com.ar/pages/padel",
   },
 ];
 
