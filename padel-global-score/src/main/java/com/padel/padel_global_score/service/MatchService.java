@@ -10,23 +10,31 @@ import com.padel.padel_global_score.persistence.entity.Team;
 import com.padel.padel_global_score.persistence.repository.MatchRepo;
 import com.padel.padel_global_score.presentation.dto.CreateMatchDTO;
 import com.padel.padel_global_score.presentation.dto.MatchResultsDTO;
+import com.padel.padel_global_score.service.http.NotificationClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MatchService {
     private final MatchRepo repo;
     private final TeamService teamService;
     private final LocationService locationService;
+    private final NotificationClient notificationClient;
 
-    public MatchService(MatchRepo repo, TeamService teamService, LocationService locationService) {
+    public MatchService(
+            MatchRepo repo,
+            TeamService teamService,
+            LocationService locationService,
+            NotificationClient notificationClient) {
         this.repo = repo;
         this.teamService = teamService;
         this.locationService = locationService;
+        this.notificationClient = notificationClient;
     }
 
     public Match createMatch(CreateMatchDTO dto) {
@@ -44,6 +52,20 @@ public class MatchService {
         match.setTime(dto.time());
         match.setLocation(location);
         match.setState(StateMatch.PENDING);
+        //mandar notificacion
+        try {
+            String nameA = teamA.getLeftSide().getName() + "/" + teamA.getRightSide().getName();
+            String nameB = teamB.getLeftSide().getName() + "/" + teamB.getRightSide().getName();
+            notificationClient.createNotification(Map.of(
+                    "date", match.getDate(),
+                    "location", location.getName(),
+                    "time", match.getTime(),
+                    "teamA", nameA,
+                    "teamB", nameB
+            ));
+        } catch (Exception e) {
+            System.err.println("Error sending notification: " + e.getMessage());
+        }
         return repo.save(match);
     }
 
@@ -56,6 +78,19 @@ public class MatchService {
 
         Team winner = determineWinner(dto, match.getTeamA(), match.getTeamB());
         match.setWinner(winner);
+        try {
+            notificationClient.finishNotification(Map.of(
+                    "teamA", match.getTeamA().getLeftSide().getName() + "/" + match.getTeamA().getRightSide().getName(),
+                    "teamB", match.getTeamB().getLeftSide().getName() + "/" + match.getTeamB().getRightSide().getName(),
+                    "winner", winner.getLeftSide().getName() + "/" + winner.getRightSide().getName(),
+                    "results", dto.results(),
+                    "location", match.getLocation().getName(),
+                    "date", match.getDate(),
+                    "time", match.getTime()
+            ));
+        } catch (Exception e) {
+            System.err.println("Error sending notification: " + e.getMessage());
+        }
         return repo.save(match);
     }
 

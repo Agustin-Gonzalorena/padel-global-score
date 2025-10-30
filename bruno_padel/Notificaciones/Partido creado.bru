@@ -1,0 +1,25 @@
+meta {
+  name: Partido creado
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8081/api/notifications/create
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "date":"2025-10-29",
+    "location":"Head",
+    "time":"19:00:00",
+    "teamA":"Stagol/Papusax",
+    "teamB":"Rappa/Fede"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

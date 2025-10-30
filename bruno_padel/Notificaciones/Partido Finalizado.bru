@@ -1,0 +1,43 @@
+meta {
+  name: Partido Finalizado
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8081/api/notifications/finish
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "teamA":"Stagol/Papusax",
+    "teamB":"Rappa/Fede",
+    "winner":"Stagol/Papusax",
+    "date":"2025-12-27",
+    "time":"19:00:00",
+    "location":"Nexus",
+    "results":[
+      {
+        "numberSet":1,
+        "gamesTeamA":7,
+        "gamesTeamB":6
+      },
+      {
+        "numberSet":2,
+        "gamesTeamA":4,
+        "gamesTeamB":6
+      },
+      {
+        "numberSet":3,
+        "gamesTeamA":7,
+        "gamesTeamB":5
+      }
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+}

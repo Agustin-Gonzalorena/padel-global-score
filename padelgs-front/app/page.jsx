@@ -4,6 +4,7 @@ import BoxTeam from "./components/BoxTeam";
 import BoxMenu from "./components/BoxMenu";
 import Loading from "./components/Loading";
 import Stats from "./components/Stats";
+import JoinTelegram from "./components/JoinTelegram";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -95,6 +96,7 @@ export default function Home() {
       />
       <Stats results={results} />
       <BoxMenu teamA={teams[0].teamA} teamB={teams[0].teamB} />
+      <JoinTelegram />
     </>
   );
 }
