@@ -6,11 +6,15 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
-public class NotificationTelegramBot extends TelegramLongPollingBot {
-    @Value("${USER_BOT}")
-    private String userBot;
-    @Value("${TOKEN_BOT}")
-    private String tokenBot;
+    public class NotificationTelegramBot extends TelegramLongPollingBot {
+    private final String userBot;
+
+    public NotificationTelegramBot(
+            @Value("${USER_BOT}") String userBot,
+            @Value("${TOKEN_BOT}") String tokenBot) {
+        super(tokenBot);
+        this.userBot = userBot;
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -19,11 +23,9 @@ public class NotificationTelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return userBot;
+        return this.userBot;
     }
 
-    @Override
-    public String getBotToken() {
-        return tokenBot;
-    }
+
+
 }

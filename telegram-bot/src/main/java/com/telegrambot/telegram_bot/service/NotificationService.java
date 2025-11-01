@@ -68,7 +68,7 @@ public class NotificationService {
         int set2TeamB = dto.results().get(1).gamesTeamB();
         int set3TeamA = dto.results().get(2).gamesTeamA();
         int set3TeamB = dto.results().get(2).gamesTeamB();
-        String header = gemini.getNews(dto);
+        String header = gemini.getHeaderNotification(dto);
         if(header == null || header.isBlank()){
             header =
                     "\uD83E\uDD73 <b>Felicitaciones</b>\n" +

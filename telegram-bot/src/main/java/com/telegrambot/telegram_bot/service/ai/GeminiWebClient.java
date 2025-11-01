@@ -23,7 +23,7 @@ public class GeminiWebClient {
         this.webClientBuilder = webClientBuilder;
     }
 
-    public String getNews(ResultDTO dto){
+    public String getHeaderNotification(ResultDTO dto){
         try{
         String resultados = Map.of(
                 "Equipo A", dto.results().get(0).gamesTeamA() + "-" + dto.results().get(1).gamesTeamA() + "-" + dto.results().get(2).gamesTeamA(),
