@@ -9,8 +9,7 @@ const BoxMenu = ({ teamA, teamB }) => {
             href={`/players?teamA=${teamA.id}&teamB=${teamB.id}`}
             className="w-1/2 "
           >
-            <div className="bg-secondary p-5 border-b-2 border-white/50 rounded-2xl active:scale-95">
-              <p>NUESTROS</p>
+            <div className="bg-secondary px-5 py-6 border-b-2 border-white/50 rounded-2xl active:scale-95">
               <p>JUGADORES</p>
             </div>
           </a>
@@ -18,15 +17,14 @@ const BoxMenu = ({ teamA, teamB }) => {
             href={`/history?teamA=${teamA.id}&teamB=${teamB.id}`}
             className="w-1/2"
           >
-            <div className="bg-secondary p-5 border-b-2 border-white/50 rounded-2xl active:scale-95">
-              <p>HISTORIAL</p>
+            <div className="bg-secondary px-5 py-6 border-b-2 border-white/50 rounded-2xl active:scale-95">
               <p>PARTIDOS</p>
             </div>
           </a>
         </div>
         <a href="/news" className="w-full">
           <div className="mt-1 bg-secondary p-4 border-b-2 border-white/50 text-center text-sm rounded-2xl active:scale-95">
-            ULTIMAS NOTICIAS
+            NOTICIAS
           </div>
         </a>
       </div>

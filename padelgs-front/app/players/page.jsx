@@ -6,7 +6,10 @@ const page = () => {
   return (
     <>
       <div className="flex flex-col gap-4 mt-5 min-h-screen">
-        <TitleSections title={"Jugadores"} subtitle={"Conozca a los atletas"} />
+        <TitleSections
+          title={"Jugadores"}
+          subtitle={"Los cracks y sus habilidades"}
+        />
         {/* <Suspense fallback={<div>Loading players...</div>}>
           <BoxPlayer />
         </Suspense> */}

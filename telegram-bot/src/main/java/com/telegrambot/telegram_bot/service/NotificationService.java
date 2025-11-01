@@ -3,6 +3,8 @@ package com.telegrambot.telegram_bot.service;
 import com.telegrambot.telegram_bot.bot.NotificationTelegramBot;
 import com.telegrambot.telegram_bot.presentation.dto.MatchDTO;
 import com.telegrambot.telegram_bot.presentation.dto.ResultDTO;
+import com.telegrambot.telegram_bot.service.ai.GeminiWebClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
@@ -14,9 +16,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class NotificationService {
-    private static final String CHAT_ID = "-1002926852050";
+    @Value("${CHAT_ID}")
+    private String CHAT_ID;
     private final NotificationTelegramBot bot;
-    public NotificationService(NotificationTelegramBot bot) {
+    private final GeminiWebClient gemini;
+    public NotificationService(NotificationTelegramBot bot, GeminiWebClient gemini) {
+        this.gemini = gemini;
         this.bot = bot;
     }
 
@@ -63,10 +68,15 @@ public class NotificationService {
         int set2TeamB = dto.results().get(1).gamesTeamB();
         int set3TeamA = dto.results().get(2).gamesTeamA();
         int set3TeamB = dto.results().get(2).gamesTeamB();
+        String header = gemini.getNews(dto);
+        if(header == null || header.isBlank()){
+            header =
+                    "\uD83E\uDD73 <b>Felicitaciones</b>\n" +
+                    "\uD83C\uDFC6 <b>" + escapeHtml(winner) + "</b>\n" +
+                    "\uD83C\uDF89 <b>por su GRAN victoria!!</b>\n";
+        }
         String response =
-                "\uD83E\uDD73 <b>Felicitaciones</b>\n" +
-                        "\uD83C\uDFC6 <b>" + escapeHtml(winner) + "</b>\n" +
-                        "\uD83C\uDF89 <b>por su GRAN victoria!!</b>\n\n" +
+                        header+"\n\n" +
                         escapeHtml(date) + " - " + escapeHtml(location) + " - " + escapeHtml(time) + "hs\n\n" +
 
                         // Bloque de sets
@@ -77,9 +87,7 @@ public class NotificationService {
                         escapeHtml(teamB) +
                         "</pre>\n\n" +
 
-                        "<a href=\"https://padelgs.vercel.app\">\uD83C\uDF10 Ver estadísticas completas</a>";
-
-
+                        "<a href=\"https://padelgs.vercel.app\">Así quedaron las Stats\uD83D\uDC47\uD83D\uDC47\uD83D\uDC47</a>";
         this.sendNotification(response);
     }
 

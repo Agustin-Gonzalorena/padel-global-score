@@ -96,7 +96,7 @@ export default function Home() {
       />
       <Stats results={results} />
       <BoxMenu teamA={teams[0].teamA} teamB={teams[0].teamB} />
-      <JoinTelegram />
+      {/* <JoinTelegram /> */}
     </>
   );
 }

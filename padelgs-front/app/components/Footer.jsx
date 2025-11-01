@@ -56,7 +56,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#19201b] w-full md:px-20 px-2 py-10 mt-8">
       <div className="w-full">
-        <h2 className="text-2xl font-bold font-mono mb-2">OUR PARTNERS</h2>
+        <h2 className="text-2xl font-bold font-mono mb-2">SPONSORS</h2>
       </div>
       <div className="flex flex-col py-px-32 lg:py-px-48 gap-px-16 lg:gap-px-24">
         <div className="flex flex-wrap px-3 gap-px-24 md:gap-px-32 lg:gap-px-48">
@@ -79,6 +79,14 @@ const Footer = () => {
         <div className="w-full flex flex-col items-center">
           <h2 className="text-2xl font-bold font-mono mt-10 mb-2">Contacto</h2>
           <p>En la cancha</p>
+          <a
+            href="https://t.me/+S5o5kvc7sx0yYzVh"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 text-muted-foreground text-sm underline"
+          >
+            Recibir novedades
+          </a>
           <a href="/admin" className="mt-8 text-muted-foreground underline">
             Administrar
           </a>

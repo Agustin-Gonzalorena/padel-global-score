@@ -7,7 +7,7 @@ const page = () => {
     <>
       <TitleSections
         title={"Historial"}
-        subtitle={"Revise los encuentros pasados"}
+        subtitle={"Lo que pasó y por qué dolió"}
       />
       <BoxHistory />
     </>

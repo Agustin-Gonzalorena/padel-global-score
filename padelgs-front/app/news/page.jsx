@@ -5,10 +5,7 @@ import TitleSections from "../components/TitleSections";
 export default function NewsList() {
   return (
     <div>
-      <TitleSections
-        title={"Noticias"}
-        subtitle="Mantente al día con las últimas novedades"
-      />
+      <TitleSections title={"Noticias"} subtitle="Lo ultimo y lo que viene" />
       <div className="flex flex-col gap-4 px-2">
         {news
           .sort((a, b) => b.id - a.id)
