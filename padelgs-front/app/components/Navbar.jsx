@@ -4,9 +4,9 @@ const Navbar = () => {
   return (
     <header className="w-full border-b border-white/10 backdrop-blur-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 drop-shadow-xl drop-shadow-white/40">
           <a href="/" className="flex">
-            <div className="w-9 h-9">
+            <div className="w-9 h-9 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

@@ -1,14 +1,47 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import confetti from "canvas-confetti";
 
 const CardTeam = ({ team, wins, streak, win, urlTeam }) => {
+  const [cold, setCold] = useState(false);
+  const confettiRef = useRef(
+    confetti.create(null, { resize: true, useWorker: true })
+  );
+  const throwConfetti = () => {
+    const scalar = 4;
+    const emojiShape = confetti.shapeFromText({
+      text: "🔥",
+      scalar, // importante: crear la forma con el scalar que querés usar
+      fontFamily: "Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji",
+    });
+
+    confettiRef.current({
+      particleCount: 15,
+      spread: 60,
+      origin: { y: 0.6 },
+      shapes: [emojiShape],
+      scalar,
+    });
+  };
+  const activeEffect = () => {
+    if (cold) return; // prevent spamming
+    setCold(true);
+    setTimeout(() => {
+      setCold(false);
+    }, 1400);
+    if (streak > 0) {
+      throwConfetti();
+    }
+  };
   const teamLeftSideName =
     team.leftSide.name.charAt(0).toUpperCase() + team.leftSide.name.slice(1);
   const teamRightSideName =
     team.rightSide.name.charAt(0).toUpperCase() + team.rightSide.name.slice(1);
   const isWinner = win && win.id === team.id;
   return (
-    <div
-      className={`p-4 rounded-lg flex flex-col items-center bg-card ${
+    <button
+      onClick={activeEffect}
+      id={streak == 0 && cold ? "cold" : ""}
+      className={`bg-card p-4 rounded-lg flex flex-col items-center ${
         isWinner ? "border border-primary shadow-lg shadow-primary/30" : ""
       }`}
     >
@@ -70,7 +103,7 @@ const CardTeam = ({ team, wins, streak, win, urlTeam }) => {
           )}
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

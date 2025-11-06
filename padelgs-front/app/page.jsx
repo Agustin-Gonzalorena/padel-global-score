@@ -70,7 +70,7 @@ export default function Home() {
           Proximo partido:
         </h2>
         <div className="flex justify-center w-full px-2">
-          <div className="bg-orange-300/5 border-2 border-orange-300/20 p-5 rounded-2xl w-full ">
+          <div className="bg-orange-300/5 border-2 border-orange-300/20 p-5 rounded-2xl w-full">
             {lastMatch.state == "PENDING" ? (
               <div className="flex text-sm justify-center gap-10 md:gap-20 w-full">
                 <p>{getDay(lastMatch.date)}</p>

@@ -10,7 +10,7 @@ const Stats = ({ results }) => {
   return (
     <div className="w-full flex flex-col justify-center items-center gap-3 px-2">
       <TitleSections title={"Stats"} subtitle={"Datos crudos, sin filtro"} />
-      <div className="flex gap-2 w-full">
+      <div className="flex gap-2 w-full justify-center">
         <CardStats
           name={"Partidos"}
           total={results.totalMatches}
@@ -30,7 +30,7 @@ const Stats = ({ results }) => {
         A partir de aqui estan conciderados los encuentros donde se registraron
         los puntos.
       </p>
-      <div className="flex w-full gap-2">
+      <div className="flex w-full gap-2 justify-center">
         <CardStats
           name={"Sets"}
           total={results.totalSets}

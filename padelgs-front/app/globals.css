@@ -127,3 +127,9 @@ option {
   background: #000;
   color-scheme: dark;
 }
+#cold {
+  transition: all 0.5s;
+  background-color: #0a1d3a;
+  background-image: url("/nieve.png");
+  color: aqua;
+}
