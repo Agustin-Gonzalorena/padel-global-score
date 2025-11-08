@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 const FormFinishMatch = ({ pendingMatch }) => {
   const [actionMatch, setActionMatch] = useState("finish");
+  const [error, setError] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -41,6 +42,7 @@ const FormFinishMatch = ({ pendingMatch }) => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error response data:", errorData.message);
+        setError(errorData.message);
         throw new Error("Network response was not ok");
       }
       const res = await response.json();
@@ -67,6 +69,7 @@ const FormFinishMatch = ({ pendingMatch }) => {
       </p>
       <div className="mb-10 flex flex-col gap-4 mt-4 bg-card/50 p-3 rounded-lg">
         <h2>Cargar resultado</h2>
+        <p className="text-xs text-red-500">{error != null && error}</p>
         <div>
           <input
             type="checkBox"

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 const FormCreateMatch = () => {
   const [locations, setLocations] = useState([]);
   const [location, setLocation] = useState(1);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +37,7 @@ const FormCreateMatch = () => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error response data:", errorData.message);
+        setError(errorData.message);
         throw new Error("Network response was not ok");
       }
       const result = await response.json();
@@ -64,6 +66,9 @@ const FormCreateMatch = () => {
   return (
     <div className="w-full justify-center items-center flex flex-col mt-5">
       <p>Crear Partido</p>
+      <p className="text-xs text-red-500">
+        {error != null && error.replace("Bad Request: ", "")}
+      </p>
       <form
         action=""
         onSubmit={handleSubmit}

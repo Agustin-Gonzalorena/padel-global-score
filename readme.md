@@ -7,3 +7,5 @@
 - Utiliza otro microservicio para mandar las notificaciones de la api principal usando un bot de telegram y Gemini Ai para generar parte de los mensajes.
 - Utiliza Next.js para el front-end de la app
 - Se utilizo bruno para testear los enpoints y documentarlos.
+
+https://deepwiki.com/agonzalorena/padel-global-score/1-overview
